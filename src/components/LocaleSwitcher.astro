@@ -1,0 +1,59 @@
+---
+const currentLocale = Astro.url.pathname.split('/')[1];
+const locales = [
+  { code: 'en', label: 'EN', name: 'English' },
+  { code: 'id', label: 'ID', name: 'Indonesian' },
+];
+---
+
+<div class="locale-switcher" role="group" aria-label="Language">
+  {
+    locales.map((locale, index) => (
+      <>
+        {index > 0 && (
+          <span class="separator" aria-hidden="true">
+            /
+          </span>
+        )}
+        {locale.code === currentLocale ? (
+          <span aria-current="page" aria-label={`${locale.name}, selected`}>
+            {locale.label}
+          </span>
+        ) : (
+          <a href={`/${locale.code}/`} aria-label={`Switch to ${locale.name}`}>
+            {locale.label}
+          </a>
+        )}
+      </>
+    ))
+  }
+</div>
+
+<style>
+  .locale-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  a,
+  span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  a {
+    color: var(--color-muted);
+  }
+
+  [aria-current] {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .separator {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+</style>
