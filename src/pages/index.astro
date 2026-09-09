@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 ---
 
 <Layout>
@@ -8,6 +9,7 @@ import Layout from '../layouts/Layout.astro';
       <img src="/portrait.webp" alt="Haikhal Roywendra" />
     </div>
     <h1>Haikhal Roywendra</h1>
+    <SocialLinks />
     <p>
       I am a former computer and network engineering student, currently studying
       computer science in Indonesia. I build web apps, explore cloud computing,
@@ -17,6 +19,10 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+  h1 {
+    margin-bottom: 0.75rem;
+  }
+
   .portrait {
     width: clamp(5rem, 9vw, 7rem);
     aspect-ratio: 1;

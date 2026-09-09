@@ -1,0 +1,51 @@
+---
+const links = [
+  { label: 'github', href: 'https://github.com/rywndr/' },
+  {
+    label: 'linkedin',
+    href: 'https://www.linkedin.com/in/haikhal-roywendra-369b5826a',
+  },
+  { label: 'x', href: 'https://x.com/kal_xyz' },
+];
+---
+
+<ul class="social-links" aria-label="Social links">
+  {
+    links.map(({ label, href }) => (
+      <li>
+        <a href={href}>{label}</a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  li + li::before {
+    content: '·' / '';
+  }
+
+  a {
+    display: inline-block;
+    padding-block: 0.25rem;
+  }
+</style>
