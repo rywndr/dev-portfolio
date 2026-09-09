@@ -6,9 +6,12 @@ import Experience from '../components/Experience.astro';
 import Education from '../components/Education.astro';
 import Projects from '../components/Projects.astro';
 import Achievements from '../components/Achievements.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
+  <Header />
   <main class="page">
     <div class="portrait">
       <img src="/portrait.webp" alt="Haikhal Roywendra" />
@@ -26,6 +29,7 @@ import Achievements from '../components/Achievements.astro';
     <Projects />
     <Achievements />
   </main>
+  <Footer />
 </Layout>
 
 <style>

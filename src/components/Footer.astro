@@ -1,0 +1,26 @@
+---
+import SocialLinks from './SocialLinks.astro';
+---
+
+<footer>
+  <nav aria-label="Social profiles">
+    <SocialLinks />
+  </nav>
+</footer>
+
+<style>
+  footer {
+    padding: 0 var(--page-gutter) 2rem;
+  }
+
+  footer :global(.social-links) {
+    justify-content: flex-end;
+    margin: 0;
+  }
+
+  footer :global(.social-links a) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+</style>
