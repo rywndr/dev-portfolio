@@ -1,0 +1,82 @@
+:root {
+  color-scheme: dark;
+  --color-background: #111111;
+  --color-text: #f5f5f5;
+  --color-muted: #b3b3b3;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Geist', Helvetica, Arial, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --page-gutter: clamp(1.5rem, 6vw, 6rem);
+  --content-width: 42rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+}
+
+.page {
+  padding: clamp(4rem, 12vw, 9rem) var(--page-gutter);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+p {
+  max-width: var(--content-width);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.25em;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+
+code,
+.mono {
+  font-family: var(--font-mono);
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
