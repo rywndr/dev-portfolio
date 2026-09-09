@@ -1,0 +1,78 @@
+<div class="email">
+  <button type="button" id="copy-email" title="Copy email address" disabled>
+    email: &lt;<span id="email-address">haikhalroy [at] gmail (dot) com</span
+    >&gt;
+  </button>
+  <span id="copy-email-status" role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  const button = document.getElementById('copy-email');
+  const status = document.getElementById('copy-email-status');
+  const addressLabel = document.getElementById('email-address');
+
+  if (button instanceof HTMLButtonElement && status && addressLabel) {
+    let feedbackTimer: ReturnType<typeof window.setTimeout> | undefined;
+    button.disabled = false;
+    button.addEventListener('click', async () => {
+      const address = (addressLabel.textContent ?? '')
+        .trim()
+        .replace(' [at] ', '@')
+        .replace(' (dot) ', '.');
+
+      button.disabled = true;
+      window.clearTimeout(feedbackTimer);
+      status.textContent = '';
+      try {
+        await navigator.clipboard.writeText(address);
+        status.textContent = 'Copied';
+        feedbackTimer = window.setTimeout(() => {
+          status.textContent = '';
+        }, 3000);
+      } catch {
+        status.textContent =
+          'Could not copy. Please copy the address manually.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .email {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  button {
+    min-height: 2.75rem;
+    padding: 0.25rem 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1.75;
+    text-align: left;
+    cursor: pointer;
+    text-underline-offset: 0.25em;
+  }
+
+  button:hover,
+  button:focus-visible {
+    text-decoration: underline;
+  }
+
+  button:disabled {
+    cursor: default;
+  }
+
+  [role='status'] {
+    font-size: 0.75rem;
+  }
+</style>
