@@ -1,0 +1,82 @@
+<section
+  id="achievements"
+  class="portfolio-section"
+  aria-labelledby="achievements-heading"
+>
+  <h2 id="achievements-heading">&lt;achievements&gt;</h2>
+  <article>
+    <div class="preview">
+      <img
+        src="/projects/gcp-bounty.webp"
+        alt="StackUp and Google Cloud Bounty Challenge"
+        width="4050"
+        height="2025"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <div class="details">
+      <h3>Google Cloud Singapore × StackUp Bounty</h3>
+      <p class="result">Top 6 out of 500+ participants</p>
+      <p class="description">
+        Built and documented a comprehensive guide to setting up and running an
+        Ethereum validator node on Google Cloud infrastructure.
+      </p>
+    </div>
+  </article>
+</section>
+
+<style>
+  article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .preview {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .details {
+    padding-top: 0.25rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-family: 'Times New Roman', Times, 'Liberation Serif', serif;
+    font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .result {
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  .description {
+    margin-top: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 40rem) {
+    article {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
