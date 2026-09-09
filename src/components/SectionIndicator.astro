@@ -80,7 +80,7 @@ import { sections } from '../data/sections.js';
   }
 
   @media (min-width: 75rem) {
-    .section-indicator {
+    .section-indicator:has(a[aria-current='location']) {
       display: block;
       position: fixed;
       top: 50%;
