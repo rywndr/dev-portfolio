@@ -13,7 +13,7 @@ const technologies = [
 ];
 ---
 
-<section id="tech" aria-labelledby="tech-heading">
+<section id="tech" class="portfolio-section" aria-labelledby="tech-heading">
   <h2 id="tech-heading">&lt;tech I use&gt;</h2>
   <ul role="list">
     {technologies.map((technology) => <li>{technology}</li>)}
@@ -21,20 +21,6 @@ const technologies = [
 </section>
 
 <style>
-  section {
-    max-width: var(--content-width);
-    margin-top: clamp(2.5rem, 5vw, 4rem);
-    scroll-margin-top: 2rem;
-  }
-
-  h2 {
-    margin: 0 0 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-
   ul {
     display: flex;
     flex-wrap: wrap;
