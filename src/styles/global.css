@@ -30,7 +30,7 @@ body {
 }
 
 .page {
-  padding: clamp(4rem, 12vw, 9rem) var(--page-gutter);
+  padding-bottom: clamp(4rem, 12vw, 9rem);
 }
 
 h1 {

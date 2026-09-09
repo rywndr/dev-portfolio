@@ -14,35 +14,49 @@ import EmailCopy from '../components/EmailCopy.astro';
 <Layout>
   <Header />
   <main class="page">
-    <div class="portrait">
-      <img src="/portrait.webp" alt="Haikhal Roywendra" />
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="portrait">
+        <img src="/portrait.webp" alt="Haikhal Roywendra" />
+      </div>
+      <h1 id="hero-heading">Haikhal Roywendra</h1>
+      <div class="contact">
+        <SocialLinks />
+        <EmailCopy />
+      </div>
+      <p>
+        I am a former computer and network engineering student, currently
+        studying computer science in Indonesia. I build web apps, explore cloud
+        computing, and am learning DevOps.
+      </p>
+      <TechStack />
+    </section>
+    <div class="sections">
+      <Experience />
+      <Education />
+      <Projects />
+      <Achievements />
     </div>
-    <h1>Haikhal Roywendra</h1>
-    <div class="contact">
-      <SocialLinks />
-      <EmailCopy />
-    </div>
-    <p>
-      I am a former computer and network engineering student, currently studying
-      computer science in Indonesia. I build web apps, explore cloud computing,
-      and am learning DevOps.
-    </p>
-    <TechStack />
-    <Experience />
-    <Education />
-    <Projects />
-    <Achievements />
   </main>
   <Footer />
 </Layout>
 
 <style>
+  .hero {
+    padding: clamp(1.5rem, 4vw, 3rem) var(--page-gutter)
+      clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .sections {
+    padding-inline: var(--page-gutter);
+    display: flow-root;
+  }
+
   .contact {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.25rem 1.5rem;
-    margin-bottom: 2rem;
+    gap: 0 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .contact :global(.social-links) {
