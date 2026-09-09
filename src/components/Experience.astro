@@ -1,10 +1,14 @@
+---
+import '../styles/timeline.css';
+---
+
 <section
   id="experience"
   class="portfolio-section"
   aria-labelledby="experience-heading"
 >
   <h2 id="experience-heading">&lt;experience&gt;</h2>
-  <ol role="list">
+  <ol class="timeline" role="list">
     <li>
       <p class="dates">
         <time datetime="2022">2022</time> &ndash; <time datetime="2025"
@@ -32,69 +36,3 @@
     </li>
   </ol>
 </section>
-
-<style>
-  ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  li {
-    position: relative;
-    padding-left: 1.5rem;
-  }
-
-  li:not(:last-child) {
-    padding-bottom: 2rem;
-  }
-
-  li::before {
-    content: '';
-    position: absolute;
-    top: 0.4rem;
-    left: 0;
-    width: 0.5rem;
-    height: 0.5rem;
-    border: 1px solid var(--color-muted);
-    border-radius: 50%;
-    background: var(--color-background);
-    z-index: 1;
-  }
-
-  li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 0.65rem;
-    bottom: -0.65rem;
-    left: calc(0.25rem - 0.5px);
-    width: 1px;
-    background: var(--color-muted);
-    opacity: 0.35;
-  }
-
-  .dates {
-    margin-bottom: 0.5rem;
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-
-  .organization {
-    margin-top: 0.25rem;
-    font-size: 0.9375rem;
-  }
-
-  .description {
-    margin-top: 0.5rem;
-    color: var(--color-muted);
-    font-size: 0.9375rem;
-  }
-</style>
