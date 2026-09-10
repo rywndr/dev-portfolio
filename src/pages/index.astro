@@ -1,3 +1,87 @@
 ---
-return Astro.redirect('/en/');
+import Layout from '../layouts/Layout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import TechStack from '../components/TechStack.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import Projects from '../components/Projects.astro';
+import Achievements from '../components/Achievements.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import EmailCopy from '../components/EmailCopy.astro';
+import SectionIndicator from '../components/SectionIndicator.astro';
 ---
+
+<Layout>
+  <Header />
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="portrait">
+        <img src="/portrait.webp" alt="Haikhal Roywendra" />
+      </div>
+      <h1 id="hero-heading">Haikhal Roywendra</h1>
+      <div class="contact">
+        <SocialLinks />
+        <EmailCopy />
+      </div>
+      <p>
+        I am a former computer and network engineering student, currently
+        studying computer science in Indonesia. I build web apps, explore cloud
+        computing, and am learning DevOps.
+      </p>
+      <TechStack />
+    </section>
+    <div class="sections">
+      <Experience />
+      <Education />
+      <Projects />
+      <Achievements />
+    </div>
+  </main>
+  <Footer />
+  <SectionIndicator />
+</Layout>
+
+<style>
+  .hero {
+    padding: clamp(1.5rem, 4vw, 3rem) var(--page-gutter)
+      clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .sections {
+    padding-inline: var(--page-gutter);
+    display: flow-root;
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact :global(.social-links) {
+    margin-bottom: 0;
+  }
+
+  h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .portrait {
+    width: clamp(5rem, 9vw, 7rem);
+    aspect-ratio: 1;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    overflow: hidden;
+    border: 1px solid var(--color-muted);
+    border-radius: 50%;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

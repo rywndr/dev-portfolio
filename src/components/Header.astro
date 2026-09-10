@@ -1,7 +1,6 @@
 ---
 import { sections } from '../data/sections.js';
 import { cvUrl } from '../data/site.js';
-import LocaleSwitcher from './LocaleSwitcher.astro';
 ---
 
 <header>
@@ -15,16 +14,33 @@ import LocaleSwitcher from './LocaleSwitcher.astro';
         ))
       }
     </ul>
-    <div class="utilities">
-      <a
-        href={cvUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="CV PDF, opens in a new tab"
-      >
-        CV <span aria-hidden="true">↗</span>
-      </a>
-      <LocaleSwitcher />
+    <div class="cv">
+      {
+        cvUrl ? (
+          <a
+            href={cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CV PDF, opens in a new tab"
+          >
+            CV <span aria-hidden="true">↗</span>
+          </a>
+        ) : (
+          <>
+            <button
+              type="button"
+              id="cv-button"
+              aria-describedby="cv-status"
+              disabled
+            >
+              <span class="cv-label">CV</span>
+              <span aria-hidden="true">↗</span>
+            </button>
+            <span id="cv-status" role="status" />
+            <noscript>CV is not ready</noscript>
+          </>
+        )
+      }
     </div>
   </nav>
 </header>
@@ -54,16 +70,67 @@ import LocaleSwitcher from './LocaleSwitcher.astro';
     list-style: none;
   }
 
-  .utilities {
+  .cv {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
   }
 
-  a {
+  a,
+  button {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
     gap: 0.25rem;
   }
+
+  button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  button:hover .cv-label,
+  button:focus-visible .cv-label {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  [role='status'] {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    white-space: nowrap;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 40rem) {
+    .cv {
+      flex-basis: 100%;
+      justify-content: flex-end;
+    }
+  }
 </style>
+
+<script>
+  const cvButton = document.getElementById('cv-button');
+  const cvStatus = document.getElementById('cv-status');
+
+  if (cvButton instanceof HTMLButtonElement && cvStatus) {
+    let feedbackTimer: ReturnType<typeof window.setTimeout> | undefined;
+    cvButton.disabled = false;
+
+    cvButton.addEventListener('click', () => {
+      window.clearTimeout(feedbackTimer);
+      cvStatus.textContent = 'CV is not ready';
+      feedbackTimer = window.setTimeout(() => {
+        cvStatus.textContent = '';
+      }, 3000);
+    });
+  }
+</script>
