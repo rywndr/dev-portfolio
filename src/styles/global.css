@@ -8,6 +8,7 @@
   --font-mono: 'Geist Mono', monospace;
   --page-gutter: clamp(1.5rem, 6vw, 6rem);
   --content-width: 42rem;
+  --section-width: 56rem;
 }
 
 *,
@@ -30,7 +31,7 @@ body {
 }
 
 .page {
-  padding-bottom: clamp(4rem, 12vw, 9rem);
+  padding-bottom: clamp(3rem, 7vw, 6rem);
 }
 
 h1 {
@@ -49,15 +50,16 @@ p {
 }
 
 .portfolio-section {
-  max-width: var(--content-width);
+  max-width: var(--section-width);
   margin-top: clamp(2.5rem, 5vw, 4rem);
   scroll-margin-top: 2rem;
 }
 
-.portfolio-section > h2 {
+.portfolio-section > h2,
+.section-heading {
   margin: 0 0 1rem;
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
 }

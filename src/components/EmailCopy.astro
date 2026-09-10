@@ -1,41 +1,43 @@
 <div class="email">
-  <button type="button" id="copy-email" title="Copy email address" disabled>
-    email: &lt;<span id="email-address">haikhalroy [at] gmail (dot) com</span
+  <button type="button" title="Copy email address" disabled>
+    email: &lt;<span class="email-address">haikhalroy [at] gmail (dot) com</span
     >&gt;
   </button>
-  <span id="copy-email-status" role="status" aria-live="polite"></span>
+  <span role="status" aria-live="polite"></span>
 </div>
 
 <script>
-  const button = document.getElementById('copy-email');
-  const status = document.getElementById('copy-email-status');
-  const addressLabel = document.getElementById('email-address');
+  for (const email of document.querySelectorAll('.email')) {
+    const button = email.querySelector('button');
+    const status = email.querySelector('[role="status"]');
+    const addressLabel = email.querySelector('.email-address');
 
-  if (button instanceof HTMLButtonElement && status && addressLabel) {
-    let feedbackTimer: ReturnType<typeof window.setTimeout> | undefined;
-    button.disabled = false;
-    button.addEventListener('click', async () => {
-      const address = (addressLabel.textContent ?? '')
-        .trim()
-        .replace(' [at] ', '@')
-        .replace(' (dot) ', '.');
+    if (button instanceof HTMLButtonElement && status && addressLabel) {
+      let feedbackTimer: ReturnType<typeof window.setTimeout> | undefined;
+      button.disabled = false;
+      button.addEventListener('click', async () => {
+        const address = (addressLabel.textContent ?? '')
+          .trim()
+          .replace(' [at] ', '@')
+          .replace(' (dot) ', '.');
 
-      button.disabled = true;
-      window.clearTimeout(feedbackTimer);
-      status.textContent = '';
-      try {
-        await navigator.clipboard.writeText(address);
-        status.textContent = 'Copied';
-        feedbackTimer = window.setTimeout(() => {
-          status.textContent = '';
-        }, 3000);
-      } catch {
-        status.textContent =
-          'Could not copy. Please copy the address manually.';
-      } finally {
-        button.disabled = false;
-      }
-    });
+        button.disabled = true;
+        window.clearTimeout(feedbackTimer);
+        status.textContent = '';
+        try {
+          await navigator.clipboard.writeText(address);
+          status.textContent = 'Copied';
+          feedbackTimer = window.setTimeout(() => {
+            status.textContent = '';
+          }, 3000);
+        } catch {
+          status.textContent =
+            'Could not copy. Please copy the address manually.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
   }
 </script>
 
