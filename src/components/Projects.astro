@@ -5,34 +5,51 @@ type ProjectSource =
 type Project = {
   name: string;
   image: string | null;
+  description: string;
   source: ProjectSource;
 };
 
 const projects: Project[] = [
-  { name: 'AfiDu', image: null, source: { kind: 'open-source', github: '#' } },
+  {
+    name: 'AfiDu',
+    image: null,
+    description:
+      'A management and e-learning platform for a private English learning center, digitizing student records, payments, grades, report cards, learning materials, and online assignments.',
+    source: { kind: 'open-source', github: '#' },
+  },
   {
     name: 'A&A Counsellors at Law',
     image: '/projects/aalaw.webp',
+    description:
+      'A production website for a South Jakarta law firm, built with Next.js and TypeScript. Features bilingual content, dynamic lawyer profiles, SEO optimization, and an integrated contact system.',
     source: { kind: 'closed-source' },
   },
   {
     name: 'Habits+',
     image: null,
+    description:
+      'A multi tenant student progress platform for special needs schools, combining structured behavioral observations, analytics, role based access (RBAC) and LLM assisted weekly reporting with teacher review.',
     source: { kind: 'open-source', github: '#' },
   },
   {
     name: 'Huntsman e-commerce',
     image: null,
+    description:
+      'A full-stack e-commerce platform for a small outdoor retailer, with integrated payments, shipping, inventory management, order fulfillment, and returns.',
     source: { kind: 'open-source', github: '#' },
   },
   {
     name: 'Mirai',
     image: '/projects/mirai-console.webp',
+    description:
+      "Mirai is a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
     source: { kind: 'closed-source' },
   },
   {
     name: 'TikTok Dapp',
     image: '/projects/tiktok-dapp.png',
+    description:
+      'A decentralized short form video app built with Next.js and Solidity. Users connect an Ethereum wallet to publish posts and interact with content through a custom smart contract.',
     source: { kind: 'open-source', github: '#' },
   },
 ];
@@ -55,10 +72,7 @@ const projects: Project[] = [
           </div>
           <div class="details">
             <h3>{project.name}</h3>
-            <p class="description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            <p class="description">{project.description}</p>
             <div class="metadata">
               <span>&lt;tech&gt;</span>
               {project.source.kind === 'open-source' ? (
