@@ -2,93 +2,41 @@
 import { sections } from '../data/sections.js';
 ---
 
-<nav class="section-indicator" aria-label="Section navigation">
+<section-indicator role="navigation" aria-label="Section navigation">
   <ol role="list">
     {
       sections.map((section) => (
         <li>
-          <a href={`#${section}`}>
-            <span class="dot" aria-hidden="true" />
-            <span>{section}</span>
+          <a href={`#${section}`} draggable="false">
+            <span class="tick" aria-hidden="true" />
+            <span class="label">{section}</span>
           </a>
         </li>
       ))
     }
   </ol>
-</nav>
+</section-indicator>
 
-<script>
-  const navigation = document.querySelector('.section-indicator');
-
-  if (navigation) {
-    const entries = Array.from(navigation.querySelectorAll('a')).flatMap(
-      (link) => {
-        const section = document.getElementById(link.hash.slice(1));
-        return section ? [{ link, section }] : [];
-      },
-    );
-    const desktop = window.matchMedia('(min-width: 75rem)');
-    let scheduled = false;
-
-    function update() {
-      scheduled = false;
-      if (!desktop.matches) return;
-
-      const readingLine = Math.min(window.innerHeight * 0.3, 240);
-      let activeId = '';
-      for (const { section } of entries) {
-        if (section.getBoundingClientRect().top <= readingLine) {
-          activeId = section.id;
-        }
-      }
-
-      // The last section may be too short to reach the reading line.
-      const last = entries.at(-1);
-      const atBottom =
-        window.scrollY > 0 &&
-        window.scrollY + window.innerHeight >=
-          document.documentElement.scrollHeight - 2;
-      if (atBottom && last) activeId = last.section.id;
-
-      for (const { link, section } of entries) {
-        if (section.id === activeId) {
-          link.setAttribute('aria-current', 'location');
-        } else {
-          link.removeAttribute('aria-current');
-        }
-      }
-    }
-
-    function scheduleUpdate() {
-      if (scheduled || !desktop.matches) return;
-      scheduled = true;
-      window.requestAnimationFrame(update);
-    }
-
-    window.addEventListener('scroll', scheduleUpdate, { passive: true });
-    window.addEventListener('resize', scheduleUpdate);
-    window.addEventListener('pageshow', scheduleUpdate);
-    desktop.addEventListener('change', scheduleUpdate);
-    document.fonts.ready.then(scheduleUpdate);
-    update();
-  }
-</script>
+<script src="./SectionIndicator.ts"></script>
 
 <style>
-  .section-indicator {
+  /* Keep hidden on small screens and before a section is active. */
+  section-indicator {
     display: none;
   }
 
   @media (min-width: 75rem) {
-    .section-indicator:has(a[aria-current='location']) {
+    section-indicator:has(a[aria-current]) {
       display: block;
       position: fixed;
       top: 50%;
-      right: 1rem;
-      transform: translateY(-50%);
+      right: 0.75rem;
       z-index: 2;
+      transform: translateY(-50%);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
+      user-select: none;
+      touch-action: none;
     }
   }
 
@@ -102,41 +50,100 @@ import { sections } from '../data/sections.js';
     position: relative;
   }
 
-  li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: calc(2rem + 3.5px);
-    top: calc(50% + 4px);
-    bottom: calc(-50% + 4px);
-    width: 1px;
-    background: var(--color-muted);
-    opacity: 0.35;
-    pointer-events: none;
-  }
-
   a {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    min-height: 2.75rem;
-    padding-left: 2rem;
-    color: var(--color-muted);
+    width: 2.75rem;
+    height: 1.5rem;
+    padding-left: 0.5rem;
+    cursor: grab;
   }
 
-  .dot {
-    width: 8px;
-    height: 8px;
-    flex: none;
-    border: 1px solid currentColor;
-    border-radius: 50%;
+  .tick,
+  li:not(:last-child)::after {
+    width: 6px;
+    height: 2px;
+    background: color-mix(in srgb, var(--color-muted) 35%, transparent);
+    transform-origin: left;
   }
 
-  a[aria-current='location'] {
+  li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0.5rem;
+    pointer-events: none;
+  }
+
+  a[aria-current] .tick {
+    width: 10px;
+    background: var(--color-text);
+  }
+
+  .label {
+    position: absolute;
+    right: calc(100% + 0.5rem);
     color: var(--color-text);
+    opacity: 0;
+    transform: translateX(4px);
+    pointer-events: none;
   }
 
-  a[aria-current='location'] .dot {
-    background: currentColor;
+  section-indicator:is(:hover, :focus-within, [data-dragging]) .tick {
+    width: 12px;
+  }
+
+  section-indicator:is(:hover, :focus-within, [data-dragging]) li::after {
+    width: 10px;
+  }
+
+  section-indicator:is(:hover, :focus-within, [data-dragging])
+    :is(a[aria-current], a:hover, a:focus-visible, a[data-target])
+    .tick {
+    width: 26px;
+  }
+
+  section-indicator:is(:hover, :focus-within, [data-dragging])
+    li:has(+ li a[aria-current])::after,
+  section-indicator:is(:hover, :focus-within, [data-dragging])
+    li:has(a[aria-current])::after {
+    /* Keep the expanded active tick connected to the ticks around it. */
+    width: 18px;
+  }
+
+  /* Hide the active label when another link is hovered or focused. */
+  section-indicator:not([data-dragging]):is(:hover, :focus-within):not(
+      :has(a:not([aria-current]):is(:hover, :focus-visible))
+    )
+    a[aria-current]
+    .label,
+  section-indicator:not([data-dragging]) a:is(:hover, :focus-visible) .label,
+  a[data-target] .label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  a[data-target] .tick {
+    background: var(--color-text);
+  }
+
+  [data-dragging] a {
+    cursor: grabbing;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tick,
+    li::after {
+      transition:
+        width 160ms ease,
+        background-color 160ms ease;
+    }
+
+    .label {
+      transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+    }
   }
 </style>
