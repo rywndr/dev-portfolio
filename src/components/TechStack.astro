@@ -1,22 +1,33 @@
 ---
 const technologies = [
-  'React',
-  'Next.js',
-  'JavaScript',
-  'TypeScript',
-  'Tailwind CSS',
-  'PostgreSQL',
-  'Docker',
-  'Python',
-  'Linux',
-  'Git',
+  { name: 'React', icon: '/icons/tech/react.svg' },
+  { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+  { name: 'JavaScript', icon: '/icons/tech/javascript.svg' },
+  { name: 'TypeScript', icon: '/icons/tech/typescript.svg' },
+  { name: 'Tailwind CSS', icon: '/icons/tech/tailwind-css.svg' },
+  { name: 'PostgreSQL', icon: '/icons/tech/postgresql.svg' },
+  { name: 'Docker', icon: '/icons/tech/docker.svg' },
+  { name: 'Python', icon: '/icons/tech/python.svg' },
+  { name: 'Linux', icon: '/icons/tech/linux.svg' },
+  { name: 'Git', icon: '/icons/tech/git.svg' },
 ];
 ---
 
 <section id="tech" class="portfolio-section" aria-labelledby="tech-heading">
   <h2 id="tech-heading">&lt;tech I use&gt;</h2>
   <ul role="list">
-    {technologies.map((technology) => <li>{technology}</li>)}
+    {
+      technologies.map(({ name, icon }) => (
+        <li>
+          <span
+            class="tech-icon"
+            aria-hidden="true"
+            style={'--icon: url(' + icon + ')'}
+          />
+          <span>{name}</span>
+        </li>
+      ))
+    }
   </ul>
 </section>
 
@@ -30,5 +41,20 @@ const technologies = [
     list-style: none;
     color: var(--color-muted);
     font-size: 0.9375rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tech-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    background: currentColor;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
   }
 </style>
