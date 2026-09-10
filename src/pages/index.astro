@@ -29,6 +29,10 @@ import SectionIndicator from '../components/SectionIndicator.astro';
         studying computer science in Indonesia. I build web apps, explore cloud
         computing, and am learning DevOps.
       </p>
+      <p>
+        Outside of code I game and run a homelab with the leftover networking
+        gear from the internet café I used to operate.
+      </p>
       <TechStack />
     </section>
     <div class="sections">
@@ -67,6 +71,10 @@ import SectionIndicator from '../components/SectionIndicator.astro';
 
   h1 {
     margin-bottom: 0.75rem;
+  }
+
+  .hero > p + p {
+    margin-top: 1.25rem;
   }
 
   .portrait {
