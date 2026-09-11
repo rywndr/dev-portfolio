@@ -3,6 +3,7 @@
   --color-background: #111111;
   --color-text: #f5f5f5;
   --color-muted: #b3b3b3;
+  --color-link: #c49a7c;
   --font-serif: 'DM Serif Display', Georgia, serif;
   --font-sans: 'Geist', Helvetica, Arial, sans-serif;
   --font-mono: 'Geist Mono', monospace;
@@ -73,6 +74,11 @@ a {
 a:hover,
 a:focus-visible {
   text-decoration: underline;
+}
+
+a.accent-link {
+  color: var(--color-link);
+  text-decoration: underline dashed;
 }
 
 :focus-visible {

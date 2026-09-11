@@ -4,7 +4,6 @@ import Header from '@components/site/header/Header.astro';
 import Footer from '@components/site/footer/Footer.astro';
 import Hero from '@components/portfolio/hero/Hero.astro';
 import Projects from '@components/portfolio/projects/Projects.astro';
-import Achievements from '@components/portfolio/achievements/Achievements.astro';
 // import SectionIndicator from '@components/portfolio/section-indicator/SectionIndicator.astro';
 ---
 
@@ -13,8 +12,7 @@ import Achievements from '@components/portfolio/achievements/Achievements.astro'
   <main class="page">
     <Hero />
     <div class="sections">
-      <Projects />
-      <Achievements />
+      <Projects featured />
     </div>
   </main>
   <Footer />

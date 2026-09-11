@@ -1,15 +1,26 @@
 ---
-import { sections } from '@data/sections';
 import { cvUrl } from '@data/site';
+
+const pages = [
+  { label: 'home', href: '/' },
+  { label: 'about', href: '/about' },
+  { label: 'projects', href: '/projects' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header>
   <nav aria-label="Main navigation">
     <ul class="section-links" role="list">
       {
-        sections.map((section) => (
+        pages.map((page) => (
           <li>
-            <a href={`#${section}`}>{section}</a>
+            <a
+              href={page.href}
+              aria-current={currentPath === page.href ? 'page' : undefined}
+            >
+              {page.label}
+            </a>
           </li>
         ))
       }
@@ -75,6 +86,10 @@ import { cvUrl } from '@data/site';
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  a[aria-current='page'] {
+    text-decoration: underline;
   }
 
   a,

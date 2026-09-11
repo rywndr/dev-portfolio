@@ -3,6 +3,16 @@ import '@fontsource/dm-serif-display/latin-400.css';
 import '@fontsource/geist/latin-400.css';
 import '@fontsource/geist-mono/latin-400.css';
 import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Haikhal Roywendra',
+  description = "Haikhal Roywendra's developer portfolio.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -10,12 +20,9 @@ import '@styles/global.css';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Haikhal Roywendra's developer portfolio."
-    />
+    <meta name="description" content={description} />
     <meta name="theme-color" content="#111111" />
-    <title>Haikhal Roywendra</title>
+    <title>{title}</title>
   </head>
   <body>
     <slot />

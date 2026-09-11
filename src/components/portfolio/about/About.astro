@@ -1,0 +1,51 @@
+---
+import SocialLinks from '@components/site/contact/SocialLinks.astro';
+import EmailCopy from '@components/site/contact/EmailCopy.astro';
+---
+
+<div class="biography">
+  <p>
+    I'm Haikhal Roywendra, an Information Systems student in Indonesia with a
+    background in computer and network engineering. My studies connect software
+    development with business systems, while my work spans web applications and
+    cloud infrastructure. I'm also deepening my DevOps skills.
+  </p>
+  <p>
+    As a freelance full-stack developer, I've built web and decentralized
+    applications, working across frontend interfaces, backend systems, APIs,
+    databases, and blockchain-based features. Before that, I interned as a
+    computer technician at Epro Tech, servicing computers and printers and
+    helping customers choose computer parts and networking equipment.
+  </p>
+  <p>
+    Outside of code, I game and tinker with homelabbing. I use leftover
+    networking gear from an internet café I used to run, keeping that interest
+    in computers and networks going beyond my coursework and development
+    projects.
+  </p>
+</div>
+
+<nav class="about-contact" aria-label="Contact and social profiles">
+  <SocialLinks />
+  <EmailCopy />
+</nav>
+
+<style>
+  .about-contact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+
+  .about-contact :global(.social-links) {
+    margin: 0;
+  }
+
+  .biography > p + p {
+    margin-top: 1.25rem;
+  }
+</style>

@@ -14,6 +14,7 @@ export type ProjectTechnology = {
 
 export type Project = {
   name: string;
+  featured: boolean;
   image: ImageMetadata | null;
   description: string;
   technologies: ProjectTechnology[];
@@ -24,6 +25,7 @@ export type Project = {
 export const projects = [
   {
     name: 'AfiDu',
+    featured: false,
     image: null,
     live: '#',
     description:
@@ -37,6 +39,7 @@ export const projects = [
   },
   {
     name: 'Audy & Antoni Law Firm',
+    featured: false,
     image: aalawImage,
     live: '#',
     description:
@@ -50,6 +53,7 @@ export const projects = [
   },
   {
     name: 'Habits+',
+    featured: false,
     image: null,
     live: '#',
     description:
@@ -65,6 +69,7 @@ export const projects = [
   },
   {
     name: 'Huntsman',
+    featured: true,
     image: null,
     live: '#',
     description:
@@ -79,10 +84,11 @@ export const projects = [
   },
   {
     name: 'Mirai',
+    featured: true,
     image: miraiConsoleImage,
     live: '#',
     description:
-      "Mirai is a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
+      "Co-developed a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
     technologies: [
       { name: 'React', icon: '/icons/tech/react.svg' },
       { name: 'Vite', icon: '/icons/tech/vite.svg' },
@@ -96,6 +102,7 @@ export const projects = [
   },
   {
     name: 'TikTok Dapp',
+    featured: false,
     image: tiktokDappImage,
     live: '#',
     description:

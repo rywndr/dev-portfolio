@@ -1,20 +1,43 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 import { projects } from './projects';
+
+interface Props {
+  featured?: boolean;
+}
+
+const { featured = false } = Astro.props;
+const visibleProjects = featured
+  ? projects.filter((project) => project.featured).slice(0, 2)
+  : projects;
 ---
 
 <section
   id="projects"
   class="portfolio-section"
-  aria-labelledby="projects-heading"
+  aria-labelledby={featured ? 'projects-heading' : undefined}
+  aria-label={featured ? undefined : 'Projects'}
 >
-  <h2 id="projects-heading">&lt;projects&gt;</h2>
+  {featured && <h2 id="projects-heading">&lt;featured projects&gt;</h2>}
   <ul class="projects" role="list">
-    {projects.map((project) => <ProjectCard project={project} />)}
+    {visibleProjects.map((project) => <ProjectCard project={project} />)}
   </ul>
+  {
+    featured && (
+      <a class="more-projects mono accent-link" href="/projects">
+        [more projects]
+      </a>
+    )
+  }
 </section>
 
 <style>
+  .more-projects {
+    display: inline-block;
+    margin-top: 2rem;
+    padding-block: 0.5rem;
+  }
+
   .projects {
     display: grid;
     gap: 3rem;

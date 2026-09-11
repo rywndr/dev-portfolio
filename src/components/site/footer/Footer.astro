@@ -1,15 +1,10 @@
 ---
 import SocialLinks from '@components/site/contact/SocialLinks.astro';
-import EmailCopy from '@components/site/contact/EmailCopy.astro';
 ---
 
-<footer id="contact" aria-labelledby="contact-heading">
-  <div class="footer-content">
-    <h2 id="contact-heading" class="section-heading">&lt;contact&gt;</h2>
-    <p>Want to collaborate? Let's talk.</p>
-  </div>
+<footer>
   <div class="contact-row">
-    <EmailCopy />
+    <p>&copy; {new Date().getFullYear()} Haikhal Roywendra</p>
     <nav aria-label="Social profiles">
       <SocialLinks />
     </nav>
@@ -22,21 +17,19 @@ import EmailCopy from '@components/site/contact/EmailCopy.astro';
     scroll-margin-top: 2rem;
   }
 
-  .footer-content {
-    max-width: var(--section-width);
-    border-top: 1px solid #303030;
-    padding-top: 2rem;
-  }
-
   p {
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
   }
 
   .contact-row {
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-muted) 20%, transparent);
+    padding-top: 2rem;
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 0.75rem 2rem;
   }
