@@ -1,4 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+import aalawImage from '../assets/projects/aalaw.webp';
+import miraiConsoleImage from '../assets/projects/mirai-console.webp';
+import tiktokDappImage from '../assets/projects/tiktok-dapp.png';
+
 type ProjectSource =
   { kind: 'open-source'; github: string } | { kind: 'closed-source' };
 
@@ -9,7 +16,7 @@ type ProjectTechnology = {
 
 type Project = {
   name: string;
-  image: string | null;
+  image: ImageMetadata | null;
   description: string;
   technologies: ProjectTechnology[];
   live: string;
@@ -32,7 +39,7 @@ const projects: Project[] = [
   },
   {
     name: 'Audy & Antoni Law Firm',
-    image: '/projects/aalaw.webp',
+    image: aalawImage,
     live: '#',
     description:
       'A production website for a South Jakarta law firm. Features bilingual content, dynamic lawyer profiles, SEO optimization, and an integrated contact system.',
@@ -74,7 +81,7 @@ const projects: Project[] = [
   },
   {
     name: 'Mirai',
-    image: '/projects/mirai-console.webp',
+    image: miraiConsoleImage,
     live: '#',
     description:
       "Mirai is a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
@@ -91,7 +98,7 @@ const projects: Project[] = [
   },
   {
     name: 'TikTok Dapp',
-    image: '/projects/tiktok-dapp.png',
+    image: tiktokDappImage,
     live: '#',
     description:
       'A decentralized short form video app. Users connect an Ethereum wallet to publish posts and interact with content through a custom smart contract.',
@@ -120,7 +127,12 @@ const projects: Project[] = [
         <li class:list={{ 'without-preview': !project.image }}>
           {project.image && (
             <div class="preview" aria-hidden="true">
-              <img src={project.image} alt="" loading="lazy" decoding="async" />
+              <Image
+                src={project.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           )}
           <div class="details">

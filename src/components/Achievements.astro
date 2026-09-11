@@ -1,11 +1,15 @@
+---
+import { Image } from 'astro:assets';
+
+import gcpBountyImage from '../assets/projects/gcp-bounty.webp';
+---
+
 <section class="portfolio-section" aria-labelledby="achievements-heading">
   <h2 id="achievements-heading">&lt;achievements&gt;</h2>
   <article class="achievement" aria-labelledby="bounty-heading">
-    <img
-      src="/projects/gcp-bounty.webp"
+    <Image
+      src={gcpBountyImage}
       alt="StackUp and Google Cloud Bounty Challenge"
-      width="4050"
-      height="2025"
       loading="lazy"
       decoding="async"
     />
