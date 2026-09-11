@@ -1,45 +1,9 @@
 <div class="email">
-  <button type="button" title="Copy email address" disabled>
+  <a href="mailto:haikhalroy@gmail.com">
     email: &lt;<span class="email-address">haikhalroy [at] gmail (dot) com</span
     >&gt;
-  </button>
-  <span role="status" aria-live="polite"></span>
+  </a>
 </div>
-
-<script>
-  for (const email of document.querySelectorAll('.email')) {
-    const button = email.querySelector('button');
-    const status = email.querySelector('[role="status"]');
-    const addressLabel = email.querySelector('.email-address');
-
-    if (button instanceof HTMLButtonElement && status && addressLabel) {
-      let feedbackTimer: ReturnType<typeof window.setTimeout> | undefined;
-      button.disabled = false;
-      button.addEventListener('click', async () => {
-        const address = (addressLabel.textContent ?? '')
-          .trim()
-          .replace(' [at] ', '@')
-          .replace(' (dot) ', '.');
-
-        button.disabled = true;
-        window.clearTimeout(feedbackTimer);
-        status.textContent = '';
-        try {
-          await navigator.clipboard.writeText(address);
-          status.textContent = 'Copied';
-          feedbackTimer = window.setTimeout(() => {
-            status.textContent = '';
-          }, 3000);
-        } catch {
-          status.textContent =
-            'Could not copy. Please copy the address manually.';
-        } finally {
-          button.disabled = false;
-        }
-      });
-    }
-  }
-</script>
 
 <style>
   .email {
@@ -52,29 +16,12 @@
     font-size: 0.875rem;
   }
 
-  button {
+  a {
+    display: inline-block;
     min-height: 2rem;
     padding: 0.25rem 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
     line-height: 1.75;
     text-align: left;
-    cursor: pointer;
     text-underline-offset: 0.25em;
-  }
-
-  button:hover,
-  button:focus-visible {
-    text-decoration: underline;
-  }
-
-  button:disabled {
-    cursor: default;
-  }
-
-  [role='status'] {
-    font-size: 0.75rem;
   }
 </style>
