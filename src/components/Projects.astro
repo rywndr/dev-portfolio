@@ -2,10 +2,16 @@
 type ProjectSource =
   { kind: 'open-source'; github: string } | { kind: 'closed-source' };
 
+type ProjectTechnology = {
+  name: string;
+  icon: string;
+};
+
 type Project = {
   name: string;
   image: string | null;
   description: string;
+  technologies: ProjectTechnology[];
   source: ProjectSource;
 };
 
@@ -15,13 +21,29 @@ const projects: Project[] = [
     image: null,
     description:
       'A management and e-learning platform for a private English learning center, digitizing student records, payments, grades, report cards, learning materials, and online assignments.',
+    technologies: [
+      { name: 'Django', icon: '/icons/tech/django.svg' },
+      { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+      { name: 'PostgreSQL', icon: '/icons/tech/postgresql.svg' },
+      { name: 'Drizzle', icon: '/icons/tech/drizzle.svg' },
+      { name: 'Better Auth', icon: '/icons/tech/better-auth.svg' },
+      { name: 'Backblaze', icon: '/icons/tech/backblaze.svg' },
+    ],
     source: { kind: 'open-source', github: '#' },
   },
   {
-    name: 'A&A Counsellors at Law',
+    name: 'Audy & Antoni',
     image: '/projects/aalaw.webp',
     description:
       'A production website for a South Jakarta law firm, built with Next.js and TypeScript. Features bilingual content, dynamic lawyer profiles, SEO optimization, and an integrated contact system.',
+    technologies: [
+      { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+      { name: 'TypeScript', icon: '/icons/tech/typescript.svg' },
+      { name: 'Tailwind CSS', icon: '/icons/tech/tailwind-css.svg' },
+      { name: 'Framer Motion', icon: '/icons/tech/framer-motion.svg' },
+      { name: 'Zod', icon: '/icons/tech/zod.svg' },
+      { name: 'Resend', icon: '/icons/tech/resend.svg' },
+    ],
     source: { kind: 'closed-source' },
   },
   {
@@ -29,13 +51,29 @@ const projects: Project[] = [
     image: null,
     description:
       'A multi tenant student progress platform for special needs schools, combining structured behavioral observations, analytics, role based access (RBAC) and LLM assisted weekly reporting with teacher review.',
+    technologies: [
+      { name: 'React', icon: '/icons/tech/react.svg' },
+      { name: 'TanStack', icon: '/icons/tech/tanstack-start.svg' },
+      { name: 'PostgreSQL', icon: '/icons/tech/postgresql.svg' },
+      { name: 'Drizzle', icon: '/icons/tech/drizzle.svg' },
+      { name: 'Better Auth', icon: '/icons/tech/better-auth.svg' },
+      { name: 'DeepSeek', icon: '/icons/tech/deepseek.svg' },
+    ],
     source: { kind: 'open-source', github: '#' },
   },
   {
-    name: 'Huntsman e-commerce',
+    name: 'Hunting Gear',
     image: null,
     description:
       'A full-stack e-commerce platform for a small outdoor retailer, with integrated payments, shipping, inventory management, order fulfillment, and returns.',
+    technologies: [
+      { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+      { name: 'PostgreSQL', icon: '/icons/tech/postgresql.svg' },
+      { name: 'Drizzle', icon: '/icons/tech/drizzle.svg' },
+      { name: 'Better Auth', icon: '/icons/tech/better-auth.svg' },
+      { name: 'Midtrans', icon: '/icons/tech/midtrans.svg' },
+      { name: 'RajaOngkir', icon: '/icons/tech/rajaongkir.svg' },
+    ],
     source: { kind: 'open-source', github: '#' },
   },
   {
@@ -43,6 +81,15 @@ const projects: Project[] = [
     image: '/projects/mirai-console.webp',
     description:
       "Mirai is a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
+    technologies: [
+      { name: 'React', icon: '/icons/tech/react.svg' },
+      { name: 'Vite', icon: '/icons/tech/vite.svg' },
+      { name: 'WebSocket', icon: '/icons/tech/websocket.svg' },
+      { name: 'gRPC', icon: '/icons/tech/grpc.svg' },
+      { name: 'PostgreSQL', icon: '/icons/tech/postgresql.svg' },
+      { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+      { name: 'Rust', icon: '/icons/tech/rust.svg' },
+    ],
     source: { kind: 'closed-source' },
   },
   {
@@ -50,6 +97,14 @@ const projects: Project[] = [
     image: '/projects/tiktok-dapp.png',
     description:
       'A decentralized short form video app built with Next.js and Solidity. Users connect an Ethereum wallet to publish posts and interact with content through a custom smart contract.',
+    technologies: [
+      { name: 'Next.js', icon: '/icons/tech/nextjs.svg' },
+      { name: 'Solidity', icon: '/icons/tech/solidity.svg' },
+      { name: 'Ethereum', icon: '/icons/tech/ethereum.svg' },
+      { name: 'Web3.js', icon: '/icons/tech/web3js.svg' },
+      { name: 'wagmi', icon: '/icons/tech/wagmi.svg' },
+      { name: 'RainbowKit', icon: '/icons/tech/rainbowkit.svg' },
+    ],
     source: { kind: 'open-source', github: '#' },
   },
 ];
@@ -74,7 +129,23 @@ const projects: Project[] = [
             <h3>{project.name}</h3>
             <p class="description">{project.description}</p>
             <div class="metadata">
-              <span>&lt;tech&gt;</span>
+              <span class="tech-label">&lt;tech&gt;</span>
+              <ul
+                class="technologies"
+                role="list"
+                aria-label={`${project.name} technologies`}
+              >
+                {project.technologies.map(({ name, icon }) => (
+                  <li>
+                    <span
+                      class="tech-icon"
+                      aria-hidden="true"
+                      style={'--icon: url(' + icon + ')'}
+                    />
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
               {project.source.kind === 'open-source' ? (
                 <a
                   href={project.source.github}
@@ -164,6 +235,33 @@ const projects: Project[] = [
     margin-top: 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.875rem;
+  }
+
+  .technologies {
+    display: flex;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-muted);
+  }
+
+  .technologies li {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .tech-icon {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    background: currentColor;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
   }
 
   @media (max-width: 48rem) {
