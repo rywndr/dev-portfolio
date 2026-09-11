@@ -1,0 +1,29 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects } from './projects';
+---
+
+<section
+  id="projects"
+  class="portfolio-section"
+  aria-labelledby="projects-heading"
+>
+  <h2 id="projects-heading">&lt;projects&gt;</h2>
+  <ul class="projects" role="list">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </ul>
+</section>
+
+<style>
+  .projects {
+    display: grid;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #projects > h2 {
+    margin-bottom: 2rem;
+  }
+</style>

@@ -1,43 +1,39 @@
 ---
 import { Image } from 'astro:assets';
 
-import gcpBountyImage from '../assets/projects/gcp-bounty.webp';
+import { achievements } from './achievements';
 ---
 
 <section class="portfolio-section" aria-labelledby="achievements-heading">
   <h2 id="achievements-heading">&lt;achievements&gt;</h2>
-  <article class="achievement" aria-labelledby="bounty-heading">
-    <Image
-      src={gcpBountyImage}
-      alt="StackUp and Google Cloud Bounty Challenge"
-      loading="lazy"
-      decoding="async"
-    />
-    <div class="details">
-      <p class="dates">Top 10 out of 500+ participants</p>
-      <h3 id="bounty-heading">Google Cloud Singapore × StackUp Bounty</h3>
-      <p class="description">
-        Built and documented a comprehensive guide to setting up and running an
-        Ethereum validator node on Google Cloud infrastructure.
-      </p>
-      <nav class="links" aria-label="Bounty achievement links">
-        <a
-          href="https://medium.com/@haikhalroy/running-an-ethereum-validator-node-google-cloud-challenge-4445bfbdf2a9"
-          aria-label="Read the Medium write-up"
-        >
-          <span class="link-icon medium-icon" aria-hidden="true"></span>
-          <span>read the write-up</span>
-        </a>
-        <a
-          href="https://x.com/StackUpHQ/status/1701952378776486240"
-          aria-label="View the post on X"
-        >
-          <span class="link-icon x-icon" aria-hidden="true"></span>
-          <span>view the post</span>
-        </a>
-      </nav>
-    </div>
-  </article>
+  {
+    achievements.map((achievement) => (
+      <article class="achievement" aria-labelledby={achievement.headingId}>
+        <Image
+          src={achievement.image}
+          alt={achievement.imageAlt}
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="details">
+          <p class="dates">{achievement.dates}</p>
+          <h3 id={achievement.headingId}>{achievement.title}</h3>
+          <p class="description">{achievement.description}</p>
+          <nav class="links" aria-label={achievement.linksLabel}>
+            {achievement.links.map((link) => (
+              <a href={link.href} aria-label={link.ariaLabel}>
+                <span
+                  class:list={['link-icon', `${link.icon}-icon`]}
+                  aria-hidden="true"
+                />
+                <span>{link.label}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      </article>
+    ))
+  }
 </section>
 
 <style>

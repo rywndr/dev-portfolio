@@ -1,26 +1,10 @@
 ---
-const links = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/rywndr/',
-    icon: '/github.svg',
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/haikhal-roywendra-369b5826a',
-    icon: '/linkedin.svg',
-  },
-  {
-    label: 'X',
-    href: 'https://x.com/kal_xyz',
-    icon: '/x.svg',
-  },
-];
+import { socialLinks } from './links';
 ---
 
 <ul class="social-links" aria-label="Social links">
   {
-    links.map(({ label, href, icon }) => (
+    socialLinks.map(({ label, href, icon }) => (
       <li>
         <a href={href} aria-label={label}>
           <img src={icon} alt="" width="16" height="16" />

@@ -1,0 +1,69 @@
+---
+import EmailCopy from '@components/site/contact/EmailCopy.astro';
+import SocialLinks from '@components/site/contact/SocialLinks.astro';
+import TechStack from '@components/portfolio/tech-stack/TechStack.astro';
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="portrait">
+    <img src="/portrait.webp" alt="Haikhal Roywendra" />
+  </div>
+  <h1 id="hero-heading">Haikhal Roywendra</h1>
+  <div class="contact">
+    <SocialLinks />
+    <EmailCopy />
+  </div>
+  <p>
+    Information Systems student in Indonesia (software development + business
+    systems) with a background in computer and network engineering. I build web
+    apps, work with cloud infrastructure, and am deepening my DevOps skills.
+  </p>
+  <p>
+    Outside of code, I game and like to tinker with homelabbing using the
+    leftover networking gear from an internet café I used to run.
+  </p>
+  <TechStack />
+</section>
+
+<style>
+  .hero {
+    padding: clamp(1.5rem, 4vw, 3rem) var(--page-gutter)
+      clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact :global(.social-links) {
+    margin-bottom: 0;
+  }
+
+  h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .hero > p + p {
+    margin-top: 1.25rem;
+  }
+
+  .portrait {
+    width: clamp(5rem, 9vw, 7rem);
+    aspect-ratio: 1;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    overflow: hidden;
+    border: 1px solid var(--color-muted);
+    border-radius: 50%;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
