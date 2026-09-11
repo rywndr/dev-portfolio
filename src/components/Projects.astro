@@ -12,6 +12,7 @@ type Project = {
   image: string | null;
   description: string;
   technologies: ProjectTechnology[];
+  live: string;
   source: ProjectSource;
 };
 
@@ -19,6 +20,7 @@ const projects: Project[] = [
   {
     name: 'AfiDu',
     image: null,
+    live: '#',
     description:
       'A management and e-learning platform for a private English learning center, digitizing student records, payments, grades, report cards, learning materials, and online assignments.',
     technologies: [
@@ -31,6 +33,7 @@ const projects: Project[] = [
   {
     name: 'Audy & Antoni Law Firm',
     image: '/projects/aalaw.webp',
+    live: '#',
     description:
       'A production website for a South Jakarta law firm. Features bilingual content, dynamic lawyer profiles, SEO optimization, and an integrated contact system.',
     technologies: [
@@ -43,6 +46,7 @@ const projects: Project[] = [
   {
     name: 'Habits+',
     image: null,
+    live: '#',
     description:
       'A multi tenant student progress platform for special needs schools, combining structured behavioral observations, analytics, and LLM assisted weekly reporting with teacher review.',
     technologies: [
@@ -57,6 +61,7 @@ const projects: Project[] = [
   {
     name: 'Huntsman',
     image: null,
+    live: '#',
     description:
       'A full-stack e-commerce platform for a small outdoor retailer, with integrated payments, shipping, inventory management, order fulfillment, and returns.',
     technologies: [
@@ -70,6 +75,7 @@ const projects: Project[] = [
   {
     name: 'Mirai',
     image: '/projects/mirai-console.webp',
+    live: '#',
     description:
       "Mirai is a headless Pixel Worlds automation platform built by reverse-engineering the game's network protocol. The self-hosted edition runs a Rust bot engine with a Vite/React WebSocket console, while the SaaS edition adds a multi-tenant Rust control plane, gRPC worker nodes, PostgreSQL-backed placement, and a Next.js dashboard.",
     technologies: [
@@ -86,6 +92,7 @@ const projects: Project[] = [
   {
     name: 'TikTok Dapp',
     image: '/projects/tiktok-dapp.png',
+    live: '#',
     description:
       'A decentralized short form video app. Users connect an Ethereum wallet to publish posts and interact with content through a custom smart contract.',
     technologies: [
@@ -117,7 +124,27 @@ const projects: Project[] = [
             </div>
           )}
           <div class="details">
-            <h3>{project.name}</h3>
+            <div class="project-heading">
+              <h3>{project.name}</h3>
+              <div class="project-links">
+                {project.source.kind === 'open-source' && (
+                  <a
+                    class="project-link github-link"
+                    href={project.source.github}
+                    aria-label={`${project.name} on GitHub`}
+                  >
+                    <span class="github-icon" aria-hidden="true" />
+                  </a>
+                )}
+                <a
+                  class="project-link live-link"
+                  href={project.live}
+                  aria-label={`${project.name} live site`}
+                >
+                  live
+                </a>
+              </div>
+            </div>
             <p class="description">{project.description}</p>
             <div class="metadata">
               <ul
@@ -136,16 +163,6 @@ const projects: Project[] = [
                   </li>
                 ))}
               </ul>
-              {project.source.kind === 'open-source' ? (
-                <a
-                  href={project.source.github}
-                  aria-label={`${project.name} on GitHub`}
-                >
-                  github
-                </a>
-              ) : (
-                <span>&lt;closed-source&gt;</span>
-              )}
             </div>
           </div>
         </li>
@@ -188,7 +205,7 @@ const projects: Project[] = [
     overflow: hidden;
   }
 
-  img {
+  .preview img {
     position: absolute;
     inset: 0;
     display: block;
@@ -202,7 +219,16 @@ const projects: Project[] = [
     padding-top: 0.25rem;
   }
 
+  .project-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+
   h3 {
+    min-width: 0;
     margin: 0;
     font-family: 'Times New Roman', Times, 'Liberation Serif', serif;
     font-size: clamp(1.5rem, 2.5vw, 1.75rem);
@@ -242,6 +268,50 @@ const projects: Project[] = [
     display: flex;
     align-items: center;
     gap: 0.35rem;
+  }
+
+  .project-links {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .project-link {
+    min-height: 2rem;
+    border: 1px solid currentColor;
+    color: var(--color-muted);
+  }
+
+  .github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    padding: 0;
+  }
+
+  .github-icon {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: currentColor;
+    -webkit-mask: url('/github.svg') center / contain no-repeat;
+    mask: url('/github.svg') center / contain no-repeat;
+  }
+
+  .live-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    line-height: 1.5;
+  }
+
+  .project-link:hover,
+  .project-link:focus-visible {
+    background: var(--color-muted);
+    color: var(--color-background);
+    text-decoration: none;
   }
 
   .tech-icon {
