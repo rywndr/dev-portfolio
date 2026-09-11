@@ -20,7 +20,16 @@ const visibleProjects = featured
 >
   {featured && <h2 id="projects-heading">&lt;featured projects&gt;</h2>}
   <ul class="projects" role="list">
-    {visibleProjects.map((project) => <ProjectCard project={project} />)}
+    {
+      visibleProjects.map((project) => (
+        <ProjectCard
+          project={project}
+          featured={featured}
+          hasGithub={project.hasGithub}
+          hasLive={project.hasLive}
+        />
+      ))
+    }
   </ul>
   {
     featured && (
@@ -40,7 +49,7 @@ const visibleProjects = featured
 
   .projects {
     display: grid;
-    gap: 3rem;
+    gap: clamp(2rem, 5vw, 3rem);
     margin: 0;
     padding: 0;
     list-style: none;

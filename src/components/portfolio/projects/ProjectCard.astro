@@ -4,12 +4,22 @@ import type { Project } from './projects';
 
 interface Props {
   project: Project;
+  featured?: boolean;
+  hasGithub: boolean;
+  hasLive: boolean;
 }
 
-const { project } = Astro.props;
+const { project, featured = false, hasGithub, hasLive } = Astro.props;
+const projectId = `project-${project.name
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/-$/, '')}`;
 ---
 
-<li class:list={{ 'without-preview': !project.image }}>
+<li
+  id={projectId}
+  class:list={['project-card', { 'without-preview': !project.image, featured }]}
+>
   {
     project.image && (
       <div class="preview" aria-hidden="true">
@@ -22,26 +32,43 @@ const { project } = Astro.props;
       <h3>{project.name}</h3>
       <div class="project-links">
         {
-          project.source.kind === 'open-source' && (
+          hasGithub && (
             <a
               class="project-link github-link"
-              href={project.source.github}
+              href={project.github}
               aria-label={`${project.name} on GitHub`}
+              target="_blank"
             >
               <span class="github-icon" aria-hidden="true" />
             </a>
           )
         }
-        <a
-          class="project-link live-link"
-          href={project.live}
-          aria-label={`${project.name} live site`}
-        >
-          live
-        </a>
+        {
+          hasLive && (
+            <a
+              class="project-link live-link"
+              href={project.live}
+              aria-label={`${project.name} live site`}
+              target="_blank"
+            >
+              live
+            </a>
+          )
+        }
       </div>
     </div>
     <p class="description">{project.description}</p>
+    {
+      featured && (
+        <a
+          class="read-more mono accent-link"
+          href={`/projects#${projectId}`}
+          aria-label={`Read more about ${project.name}`}
+        >
+          Read more <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
     <div class="metadata">
       <ul
         class="technologies"
@@ -66,11 +93,19 @@ const { project } = Astro.props;
 </li>
 
 <style>
-  li {
+  .project-card {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    align-items: start;
+    align-items: stretch;
     gap: clamp(1.5rem, 3vw, 2rem);
+    min-width: 0;
+    scroll-margin-top: 2rem;
+  }
+
+  .project-card + .project-card {
+    padding-top: clamp(2rem, 5vw, 3rem);
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-muted) 20%, transparent);
   }
 
   .without-preview {
@@ -82,6 +117,7 @@ const { project } = Astro.props;
   }
 
   .preview {
+    align-self: start;
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -98,14 +134,15 @@ const { project } = Astro.props;
   }
 
   .details {
-    padding-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
 
   .project-heading {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
     gap: 0.75rem 1rem;
   }
 
@@ -123,6 +160,25 @@ const { project } = Astro.props;
     margin-top: 0.5rem;
     color: var(--color-muted);
     font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .featured .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    min-height: 4.95em;
+  }
+
+  .read-more {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: 0.875rem;
   }
 
   .metadata {
@@ -130,7 +186,8 @@ const { project } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem 1rem;
-    margin-top: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.875rem;
   }
@@ -150,6 +207,8 @@ const { project } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .project-links {
@@ -160,7 +219,8 @@ const { project } = Astro.props;
   }
 
   .project-link {
-    min-height: 2rem;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
     border: 1px solid currentColor;
     color: var(--color-muted);
   }
@@ -169,7 +229,7 @@ const { project } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
+    width: 2.75rem;
     padding: 0;
   }
 
@@ -207,8 +267,16 @@ const { project } = Astro.props;
   }
 
   @media (max-width: 48rem) {
-    li {
+    .project-card {
       grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .project-heading {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
     }
   }
 </style>
