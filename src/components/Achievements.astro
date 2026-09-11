@@ -19,9 +19,18 @@
       <nav class="links" aria-label="Bounty achievement links">
         <a
           href="https://medium.com/@haikhalroy/running-an-ethereum-validator-node-google-cloud-challenge-4445bfbdf2a9"
-          >medium write-up</a
+          aria-label="Read the Medium write-up"
         >
-        <a href="https://x.com/StackUpHQ/status/1701952378776486240">x post</a>
+          <span class="link-icon medium-icon" aria-hidden="true"></span>
+          <span>read the write-up</span>
+        </a>
+        <a
+          href="https://x.com/StackUpHQ/status/1701952378776486240"
+          aria-label="View the post on X"
+        >
+          <span class="link-icon x-icon" aria-hidden="true"></span>
+          <span>view the post</span>
+        </a>
       </nav>
     </div>
   </article>
@@ -66,7 +75,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 1rem;
+    gap: 0.5rem 0.75rem;
     margin: 0.75rem 0 0;
     padding: 0;
     list-style: none;
@@ -75,8 +84,32 @@
   }
 
   .links a {
-    display: inline-block;
-    padding-block: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.25rem;
+    color: var(--color-muted);
+  }
+
+  .links a:hover {
+    text-decoration: none;
+  }
+
+  .link-icon {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: currentColor;
+  }
+
+  .medium-icon {
+    -webkit-mask: url('/medium.svg') center / contain no-repeat;
+    mask: url('/medium.svg') center / contain no-repeat;
+  }
+
+  .x-icon {
+    -webkit-mask: url('/x.svg') center / contain no-repeat;
+    mask: url('/x.svg') center / contain no-repeat;
   }
 
   @media (max-width: 32rem) {
