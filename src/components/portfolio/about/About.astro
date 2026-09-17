@@ -33,6 +33,7 @@ import EmailCopy from '@components/site/contact/EmailCopy.astro';
 <style>
   .about-contact {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem 1.5rem;
     margin-top: 2rem;
@@ -42,7 +43,14 @@ import EmailCopy from '@components/site/contact/EmailCopy.astro';
   }
 
   .about-contact :global(.social-links) {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
     margin: 0;
+  }
+
+  .about-contact :global(.email) {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .biography > p + p {

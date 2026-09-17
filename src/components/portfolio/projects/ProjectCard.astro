@@ -14,16 +14,33 @@ const projectId = `project-${project.name
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, '-')
   .replace(/-$/, '')}`;
+const hasPreview = project.preview.kind !== 'none';
 ---
 
 <li
   id={projectId}
-  class:list={['project-card', { 'without-preview': !project.image, featured }]}
+  class:list={['project-card', { 'without-preview': !hasPreview, featured }]}
 >
   {
-    project.image && (
+    project.preview.kind === 'image' && (
       <div class="preview" aria-hidden="true">
-        <Image src={project.image} alt="" loading="lazy" decoding="async" />
+        <Image
+          src={project.preview.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+  {
+    project.preview.kind === 'placeholder' && (
+      <div
+        class="preview placeholder"
+        role="img"
+        aria-label={`${project.name}: ${project.preview.label}`}
+      >
+        <span>{project.preview.label}</span>
       </div>
     )
   }
@@ -131,6 +148,16 @@ const projectId = `project-${project.name
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  .placeholder {
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-background) 88%, white);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    letter-spacing: 0.08em;
   }
 
   .details {

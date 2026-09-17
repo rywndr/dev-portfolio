@@ -3,16 +3,23 @@ import type { ImageMetadata } from 'astro';
 import aalawImage from '@assets/projects/aalaw.webp';
 import miraiConsoleImage from '@assets/projects/mirai-console.webp';
 import tiktokDappImage from '@assets/projects/tiktok-dapp.png';
+import afiduImage from '@assets/projects/afidu-elearning.webp'
+import habitsplusImage from '@assets/projects/habits-plus.webp'
 
 export type ProjectTechnology = {
   name: string;
   icon: string;
 };
 
+type ProjectPreview =
+  | { kind: 'image'; image: ImageMetadata }
+  | { kind: 'placeholder'; label: string }
+  | { kind: 'none' };
+
 export type Project = {
   name: string;
   featured: boolean;
-  image: ImageMetadata | null;
+  preview: ProjectPreview;
   description: string;
   technologies: ProjectTechnology[];
   live: string;
@@ -25,11 +32,11 @@ export const projects = [
   {
     name: 'AfiDu',
     featured: false,
-    image: null,
-    live: '#',
+    preview: { kind: 'image', image: afiduImage },
+    live: 'https://afidu-elearning.vercel.app/',
     github: 'https://github.com/rywndr/AfiDu',
     hasGithub: true,
-    hasLive: false,
+    hasLive: true,
     description:
       'A management and e-learning platform for a private English learning center, digitizing student records, payments, grades, report cards, learning materials, and online assignments.',
     technologies: [
@@ -41,7 +48,7 @@ export const projects = [
   {
     name: 'Audy & Antoni Law Firm',
     featured: false,
-    image: aalawImage,
+    preview: { kind: 'image', image: aalawImage },
     live: 'https://audyantonilaw.com/',
     github: '#',
     hasGithub: false,
@@ -57,11 +64,11 @@ export const projects = [
   {
     name: 'Habits+',
     featured: false,
-    image: null,
-    live: '#',
+    preview: { kind: 'image', image: habitsplusImage },
+    live: 'https://habitsplus.previu.fyi/',
     github: 'https://github.com/rywndr/habits-plus',
     hasGithub: true,
-    hasLive: false,
+    hasLive: true,
     description:
       'A multi tenant student progress platform for special needs schools, combining structured behavioral observations, analytics, and LLM assisted weekly reporting with teacher review.',
     technologies: [
@@ -75,7 +82,7 @@ export const projects = [
   {
     name: 'Huntsman',
     featured: true,
-    image: null,
+    preview: { kind: 'placeholder', label: 'In-Progress' },
     live: '#',
     github: '#',
     hasGithub: true,
@@ -92,7 +99,7 @@ export const projects = [
   {
     name: 'Mirai',
     featured: true,
-    image: miraiConsoleImage,
+    preview: { kind: 'image', image: miraiConsoleImage },
     live: '#',
     github: '#',
     hasGithub: false,
@@ -112,7 +119,7 @@ export const projects = [
   {
     name: 'TikTok Dapp',
     featured: false,
-    image: tiktokDappImage,
+    preview: { kind: 'image', image: tiktokDappImage },
     live: 'https://tiktokdapp.vercel.app/',
     github: 'https://github.com/rywndr/TikTok-clone-dApp',
     hasGithub: true,
